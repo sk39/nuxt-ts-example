@@ -1,0 +1,29 @@
+.sub-bar {
+  background: $color_header_back;
+  padding: 0.6rem 1.2rem;
+  border-top: 1px solid #ccc;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #666;
+}
+
+.v-btn {
+  text-transform: none !important;
+}
+
+.app-header-group {
+  padding: 0 36px 0 72px;
+}
+.app-header-link {
+  text-decoration: none;
+  color: #222 !important;
+  border-bottom: 2px solid #ccc;
+  padding: 0 2px 2px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0 24px;
+  &.nuxt-link-active {
+    color: $color-theme !important;
+    border-bottom-color: $color-theme;
+  }
+}

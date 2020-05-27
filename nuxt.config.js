@@ -1,7 +1,13 @@
-import colors from 'vuetify/es5/util/colors'
-
+const path = require('path')
 export default {
   mode: 'spa',
+  server: {
+    port: 3000, // デフォルト: 3000
+    host: '0.0.0.0' // デフォルト: localhost
+  },
+  router: {
+    mode: 'hash'
+  },
   /*
    ** Headers of the page
    */
@@ -26,7 +32,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['~/assets/style/common.scss'],
   /*
    ** Plugins to load before mounting the App
    */
@@ -42,7 +48,8 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    'nuxt-svg-loader'
   ],
   /*
    ** Axios module configuration
@@ -54,18 +61,19 @@ export default {
    ** https://github.com/nuxt-community/vuetify-module
    */
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
+    customVariables: ['~/assets/style/variables.scss'],
+    treeShake: true,
     theme: {
-      dark: true,
+      dark: false,
       themes: {
-        dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+        light: {
+          primary: '#00C68E'
+          // secondary: '#424242',
+          // accent: '#82B1FF',
+          // error: '#FF5252',
+          // info: '#2196F3',
+          // success: '#4CAF50',
+          // warning: '#FFC107',
         }
       }
     }
@@ -74,9 +82,31 @@ export default {
    ** Build configuration
    */
   build: {
+    babel: {
+      presets: [
+        [
+          '@nuxt/babel-preset-app',
+          {
+            targets: {
+              browsers: ['last 2 versions'],
+              ie: 11
+            },
+            corejs: { version: 3 }
+          }
+        ]
+      ]
+    },
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx) {
+      config.optimization.minimize = false
+    }
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname),
+      '~': path.resolve(__dirname)
+    }
   }
 }
